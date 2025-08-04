@@ -48,15 +48,16 @@ export default function reducer(currentTodos, action) {
       localStorage.setItem("todos", JSON.stringify(updatedTodos));
       return updatedTodos;
     }
-    case "get": {
+     case "get": {
       const storageTodos = JSON.parse(localStorage.getItem("todos")) ?? [];
-      if (storageTodos && Array.isArray(storageTodos)) {
+      if (Array.isArray(storageTodos)) {
         return storageTodos;
       }
+      return []; // أضف return هنا لتجنب fallthrough
     }
+
     default: {
-      throw new Error("Unkown Action " + action.type);
+      throw new Error("Unknown Action " + action.type);
     }
   }
-  return [];
 }
